@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 1160" width="1160" height="1160">
+<defs>
+  <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#103866" stop-opacity="0.6" />
+    <stop offset="100%" stop-color="#061a32" stop-opacity="0.9" />
+  </linearGradient>
+</defs>
+<rect width="1160" height="1160" fill="#061a32" />
+<text x="24" y="54" font-family="Plus Jakarta Sans, -apple-system, sans-serif" font-size="28" font-weight="800" fill="#ffffff">Crema Vibes <tspan fill="#f26522">Icon Font Specimen</tspan></text>
+<text x="24" y="80" font-family="JetBrains Mono, monospace" font-size="13" fill="#a0b2c6">14 Vector Glyphs • Units-per-em: 1024 • Unicode Range: E001–E014</text>
+<g id="icon-arrow-up">
+  <rect x="24" y="110" width="260" height="240" rx="16" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.14)" stroke-width="1.5" />
+  <circle cx="154.0" cy="190" r="56" fill="rgba(242, 101, 34, 0.12)" stroke="rgba(242, 101, 34, 0.3)" stroke-width="1.5" />
+  <g transform="translate(106.0, 238) scale(0.09375, -0.09375)">
+    <path d="M512 768L256 384h192v-384h128v384h192z" fill="#f26522" />
+  </g>
+  <text x="154.0" y="278" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="700" fill="#ffffff">arrow-up</text>
+  <text x="154.0" y="302" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" font-weight="600" fill="#f26522">U+E001 • .cr-arrow-up</text>
+  <text x="154.0" y="322" text-anchor="middle" font-family="monospace" font-size="11" fill="rgba(255,255,255,0.45)">&amp;#xe001;</text>
+</g>
+<g id="icon-menu">
+  <rect x="308" y="110" width="260" height="240" rx="16" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.14)" stroke-width="1.5" />
+  <circle cx="438.0" cy="190" r="56" fill="rgba(242, 101, 34, 0.12)" stroke="rgba(242, 101, 34, 0.3)" stroke-width="1.5" />
+  <g transform="translate(390.0, 238) scale(0.09375, -0.09375)">
+    <path d="M128 704v-64h768v64h-768zM128 384v-64h768v64h-768zM128 64v-64h768v64h-768z" fill="#f26522" />
+  </g>
+  <text x="438.0" y="278" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="700" fill="#ffffff">menu</text>
+  <text x="438.0" y="302" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" font-weight="600" fill="#f26522">U+E002 • .cr-menu</text>
+  <text x="438.0" y="322" text-anchor="middle" font-family="monospace" font-size="11" fill="rgba(255,255,255,0.45)">&amp;#xe002;</text>
+</g>
+<g id="icon-search">
+  <rect x="592" y="110" width="260" height="240" rx="16" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.14)" stroke-width="1.5" />
+  <circle cx="722.0" cy="190" r="56" fill="rgba(242, 101, 34, 0.12)" stroke="rgba(242, 101, 34, 0.3)" stroke-width="1.5" />
+  <g transform="translate(674.0, 238) scale(0.09375, -0.09375)">
+    <path d="M652 96c-194 0-352 158-352 352s158 352 352 352 352-158 352-352-158-352-352-352zM652 736c-159 0-288-129-288-288s129-288 288-288 288 129 288 288-129 288-288 288zM906 80l-44-44-168 168 44 44z" fill="#f26522" />
+  </g>
+  <text x="722.0" y="278" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="700" fill="#ffffff">search</text>
+  <text x="722.0" y="302" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" font-weight="600" fill="#f26522">U+E003 • .cr-search</text>
+  <text x="722.0" y="322" text-anchor="middle" font-family="monospace" font-size="11" fill="rgba(255,255,255,0.45)">&amp;#xe003;</text>
+</g>
+<g id="icon-trending-up">
+  <rect x="876" y="110" width="260" height="240" rx="16" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.14)" stroke-width="1.5" />
+  <circle cx="1006.0" cy="190" r="56" fill="rgba(242, 101, 34, 0.12)" stroke="rgba(242, 101, 34, 0.3)" stroke-width="1.5" />
+  <g transform="translate(958.0, 238) scale(0.09375, -0.09375)">
+    <path d="M128 640l256-256 192 192 320-320v192h-64v-96l-256 256-192-192-192 192zM832 192h128v128h-64v-64h-64z" fill="#f26522" />
+  </g>
+  <text x="1006.0" y="278" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="700" fill="#ffffff">trending-up</text>
+  <text x="1006.0" y="302" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" font-weight="600" fill="#f26522">U+E004 • .cr-trending-up</text>
+  <text x="1006.0" y="322" text-anchor="middle" font-family="monospace" font-size="11" fill="rgba(255,255,255,0.45)">&amp;#xe004;</text>
+</g>
+<g id="icon-chip">
+  <rect x="24" y="374" width="260" height="240" rx="16" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.14)" stroke-width="1.5" />
+  <circle cx="154.0" cy="454" r="56" fill="rgba(242, 101, 34, 0.12)" stroke="rgba(242, 101, 34, 0.3)" stroke-width="1.5" />
+  <g transform="translate(106.0, 502) scale(0.09375, -0.09375)">
+    <path d="M320 192v512h384v-512h-384zM576 640h-128v-384h128v384zM256 384h-128v-64h128v-128h64v512h-64v-128h-128v-64h128zM640 128h64v128h128v64h-128v128h128v64h-128v128h-64zM384 0h64v128h-64zM512 0h64v128h-64zM384 768h64v128h-64zM512 768h64v128h-64zM896 384h128v64h-128zM896 512h128v64h-128zM0 384h128v64h-128zM0 512h128v64h-128z" fill="#f26522" />
+  </g>
+  <text x="154.0" y="542" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="700" fill="#ffffff">chip</text>
+  <text x="154.0" y="566" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" font-weight="600" fill="#f26522">U+E005 • .cr-chip</text>
+  <text x="154.0" y="586" text-anchor="middle" font-family="monospace" font-size="11" fill="rgba(255,255,255,0.45)">&amp;#xe005;</text>
+</g>
+<g id="icon-document">
+  <rect x="308" y="374" width="260" height="240" rx="16" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.14)" stroke-width="1.5" />
+  <circle cx="438.0" cy="454" r="56" fill="rgba(242, 101, 34, 0.12)" stroke="rgba(242, 101, 34, 0.3)" stroke-width="1.5" />
+  <g transform="translate(390.0, 502) scale(0.09375, -0.09375)">
+    <path d="M192 64v768h384v-256h256v-512h-640zM640 704l128-128h-128v128zM128 0h630l162 162v666q0 26-19 45t-45 19h-640q-26 0-45-19t-19-45v-768q0-26 19-45t45-19zM256 448h384v64h-384v-64zM256 576h384v64h-384v-64zM256 320h256v64h-256v-64z" fill="#f26522" />
+  </g>
+  <text x="438.0" y="542" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="700" fill="#ffffff">document</text>
+  <text x="438.0" y="566" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" font-weight="600" fill="#f26522">U+E006 • .cr-document</text>
+  <text x="438.0" y="586" text-anchor="middle" font-family="monospace" font-size="11" fill="rgba(255,255,255,0.45)">&amp;#xe006;</text>
+</g>
+<g id="icon-target">
+  <rect x="592" y="374" width="260" height="240" rx="16" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.14)" stroke-width="1.5" />
+  <circle cx="722.0" cy="454" r="56" fill="rgba(242, 101, 34, 0.12)" stroke="rgba(242, 101, 34, 0.3)" stroke-width="1.5" />
+  <g transform="translate(674.0, 502) scale(0.09375, -0.09375)">
+    <path d="M512 64c-247 0-448 201-448 448s201 448 448 448 448-201 448-448-201-448-448-448zM512 896c-212 0-384-172-384-384s172-384 384-384 384 172 384 384-172 384-384 384zM512 192c-177 0-320 143-320 320s143 320 320 320 320-143 320-320-143-320-320-320zM512 768c-141 0-256-115-256-256s115-256 256-256 256 115 256 256-115 256-256 256zM512 320c-106 0-192 86-192 192s86 192 192 192 192-86 192-192-86-192-192-192zM512 640c-71 0-128-57-128-128s57-128 128-128 128 57 128 128-57 128-128 128z" fill="#f26522" />
+  </g>
+  <text x="722.0" y="542" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="700" fill="#ffffff">target</text>
+  <text x="722.0" y="566" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" font-weight="600" fill="#f26522">U+E007 • .cr-target</text>
+  <text x="722.0" y="586" text-anchor="middle" font-family="monospace" font-size="11" fill="rgba(255,255,255,0.45)">&amp;#xe007;</text>
+</g>
+<g id="icon-bar-chart">
+  <rect x="876" y="374" width="260" height="240" rx="16" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.14)" stroke-width="1.5" />
+  <circle cx="1006.0" cy="454" r="56" fill="rgba(242, 101, 34, 0.12)" stroke="rgba(242, 101, 34, 0.3)" stroke-width="1.5" />
+  <g transform="translate(958.0, 502) scale(0.09375, -0.09375)">
+    <path d="M128 128h128v512h-128v-512zM320 256h128v384h-128v-384zM512 64h128v576h-128v-576zM768 384h128v256h-128v-256z" fill="#f26522" />
+  </g>
+  <text x="1006.0" y="542" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="700" fill="#ffffff">bar-chart</text>
+  <text x="1006.0" y="566" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" font-weight="600" fill="#f26522">U+E008 • .cr-bar-chart</text>
+  <text x="1006.0" y="586" text-anchor="middle" font-family="monospace" font-size="11" fill="rgba(255,255,255,0.45)">&amp;#xe008;</text>
+</g>
+<g id="icon-layers">
+  <rect x="24" y="638" width="260" height="240" rx="16" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.14)" stroke-width="1.5" />
+  <circle cx="154.0" cy="718" r="56" fill="rgba(242, 101, 34, 0.12)" stroke="rgba(242, 101, 34, 0.3)" stroke-width="1.5" />
+  <g transform="translate(106.0, 766) scale(0.09375, -0.09375)">
+    <path d="M512 128l-384 192 384 192 384-192-384-192zM512 416l-256-128 256-128 256 128-256 128zM128 512l384 192 384-192-64-32-320 160-320-160zM128 640l384 192 384-192-64-32-320 160-320-160z" fill="#f26522" />
+  </g>
+  <text x="154.0" y="806" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="700" fill="#ffffff">layers</text>
+  <text x="154.0" y="830" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" font-weight="600" fill="#f26522">U+E009 • .cr-layers</text>
+  <text x="154.0" y="850" text-anchor="middle" font-family="monospace" font-size="11" fill="rgba(255,255,255,0.45)">&amp;#xe009;</text>
+</g>
+<g id="icon-chat-bubble">
+  <rect x="308" y="638" width="260" height="240" rx="16" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.14)" stroke-width="1.5" />
+  <circle cx="438.0" cy="718" r="56" fill="rgba(242, 101, 34, 0.12)" stroke="rgba(242, 101, 34, 0.3)" stroke-width="1.5" />
+  <g transform="translate(390.0, 766) scale(0.09375, -0.09375)">
+    <path d="M832 384q0 80-40 149t-109 109-149 40q-72 0-135-34l-183 48 48-183q-34-63-34-135 0-80 40-149t109-109 149-40 149 40 109 109 40 149zM512 128c-177 0-320 143-320 320 0 64 19 124 52 176l-36 140 140-36c52 33 112 52 176 52 177 0 320-143 320-320s-143-320-320-320z" fill="#f26522" />
+  </g>
+  <text x="438.0" y="806" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="700" fill="#ffffff">chat-bubble</text>
+  <text x="438.0" y="830" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" font-weight="600" fill="#f26522">U+E010 • .cr-chat-bubble</text>
+  <text x="438.0" y="850" text-anchor="middle" font-family="monospace" font-size="11" fill="rgba(255,255,255,0.45)">&amp;#xe010;</text>
+</g>
+<g id="icon-megaphone">
+  <rect x="592" y="638" width="260" height="240" rx="16" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.14)" stroke-width="1.5" />
+  <circle cx="722.0" cy="718" r="56" fill="rgba(242, 101, 34, 0.12)" stroke="rgba(242, 101, 34, 0.3)" stroke-width="1.5" />
+  <g transform="translate(674.0, 766) scale(0.09375, -0.09375)">
+    <path d="M128 320v256l512 256v-768zM576 224v384l-384-192v-192zM832 416c53 0 96-43 96-96s-43-96-96-96v192zM704 576h-64v-320h64c0-141 115-256 256-256v64c-106 0-192 86-192 192v320z" fill="#f26522" />
+  </g>
+  <text x="722.0" y="806" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="700" fill="#ffffff">megaphone</text>
+  <text x="722.0" y="830" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" font-weight="600" fill="#f26522">U+E011 • .cr-megaphone</text>
+  <text x="722.0" y="850" text-anchor="middle" font-family="monospace" font-size="11" fill="rgba(255,255,255,0.45)">&amp;#xe011;</text>
+</g>
+<g id="icon-linkedin">
+  <rect x="876" y="638" width="260" height="240" rx="16" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.14)" stroke-width="1.5" />
+  <circle cx="1006.0" cy="718" r="56" fill="rgba(242, 101, 34, 0.12)" stroke="rgba(242, 101, 34, 0.3)" stroke-width="1.5" />
+  <g transform="translate(958.0, 766) scale(0.09375, -0.09375)">
+    <path d="M256 704v-448h-128v448h128zM192 320c35 0 64 29 64 64s-29 64-64 64-64-29-64-64 29-64 64-64zM320 256h128v64c17-43 64-85 149-85 128 0 163 85 163 213v256h-128v-213c0-53-21-85-75-85-64 0-96 43-96 107v191h-128v-448z" fill="#f26522" />
+  </g>
+  <text x="1006.0" y="806" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="700" fill="#ffffff">linkedin</text>
+  <text x="1006.0" y="830" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" font-weight="600" fill="#f26522">U+E012 • .cr-linkedin</text>
+  <text x="1006.0" y="850" text-anchor="middle" font-family="monospace" font-size="11" fill="rgba(255,255,255,0.45)">&amp;#xe012;</text>
+</g>
+<g id="icon-whatsapp">
+  <rect x="24" y="902" width="260" height="240" rx="16" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.14)" stroke-width="1.5" />
+  <circle cx="154.0" cy="982" r="56" fill="rgba(242, 101, 34, 0.12)" stroke="rgba(242, 101, 34, 0.3)" stroke-width="1.5" />
+  <g transform="translate(106.0, 1030) scale(0.09375, -0.09375)">
+    <path d="M512 64c-247 0-448 201-448 448 0 88 26 171 71 241l-48 175 175-48c70 45 153 71 241 71 247 0 448-201 448-448s-201-448-448-448zM512 857c-78 0-152-24-214-65l-15-9-107 28 28-104-10-16c-44-62-68-136-68-214 0-202 164-366 366-366s366 164 366 366-164 366-366 366zM693 576c-10-5-61-30-71-33s-17-5-24 5c-7 10-28 33-34 40-6 7-12 8-23 3-10-5-44-16-84-51-31-27-52-61-58-71-6-10-1-16 4-21 5-5 10-12 16-18 5-6 7-10 10-17 3-7 2-13-1-18s-22-54-31-74c-8-19-16-16-23-17h-19c-7 0-17 2-26 12s-35 34-35 83 36 97 41 103c5 6 71 106 171 148 24 10 43 16 57 21 24 8 46 6 63 3 19-3 61-25 69-49 9-24 9-45 6-49s-10-7-19-11z" fill="#f26522" />
+  </g>
+  <text x="154.0" y="1070" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="700" fill="#ffffff">whatsapp</text>
+  <text x="154.0" y="1094" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" font-weight="600" fill="#f26522">U+E013 • .cr-whatsapp</text>
+  <text x="154.0" y="1114" text-anchor="middle" font-family="monospace" font-size="11" fill="rgba(255,255,255,0.45)">&amp;#xe013;</text>
+</g>
+<g id="icon-email">
+  <rect x="308" y="902" width="260" height="240" rx="16" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.14)" stroke-width="1.5" />
+  <circle cx="438.0" cy="982" r="56" fill="rgba(242, 101, 34, 0.12)" stroke="rgba(242, 101, 34, 0.3)" stroke-width="1.5" />
+  <g transform="translate(390.0, 1030) scale(0.09375, -0.09375)">
+    <path d="M128 192v512q0 26 19 45t45 19h640q26 0 45-19t19-45v-512q0-26-19-45t-45-19h-640q-26 0-45 19t-19 45zM192 192h640v64l-320 192-320-192v-64zM192 320l320 192 320-192v384h-640v-384z" fill="#f26522" />
+  </g>
+  <text x="438.0" y="1070" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="700" fill="#ffffff">email</text>
+  <text x="438.0" y="1094" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" font-weight="600" fill="#f26522">U+E014 • .cr-email</text>
+  <text x="438.0" y="1114" text-anchor="middle" font-family="monospace" font-size="11" fill="rgba(255,255,255,0.45)">&amp;#xe014;</text>
+</g>
+</svg>

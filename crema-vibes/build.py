@@ -1,19 +1,22 @@
 #!/usr/bin/env python3
 """
 Crema Vibes Icon Font Builder
-Creates TTF and OTF font files from SVG path data
-Requires: fonttools (pip install fonttools)
+Creates TTF, OTF, WOFF, and WOFF2 font files from SVG path data.
+Requires: fonttools, brotli (pip install fonttools brotli)
 """
 
 import os
 import re
 from fontTools.ttLib import TTFont
+from fontTools.fontBuilder import FontBuilder
 from fontTools.pens.ttGlyphPen import TTGlyphPen
 
 FONT_FAMILY = "Crema Vibes"
 FONT_NAME = "crema-vibes"
 VERSION = "1.0.0"
 UNITS_PER_EM = 1024
+ASCENT = 896
+DESCENT = -128
 
 ICONS = {
     'arrow-up': ('E001', 'M512 768L256 384h192v-384h128v384h192z'),
@@ -150,13 +153,13 @@ def parse_svg_path_to_pen(path_d, pen):
 
 def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
+    fonts_dir = os.path.dirname(script_dir)
     
     print(f"Building {FONT_FAMILY} v{VERSION}")
     print(f"Icons: {len(ICONS)}")
     print("-" * 40)
     
     # Create a new font
-    from fontTools.fontBuilder import FontBuilder
     fb = FontBuilder(UNITS_PER_EM, isTTF=True)
     
     # Set up font info
@@ -179,12 +182,12 @@ def main():
     # .notdef glyph
     pen = TTGlyphPen(None)
     pen.moveTo((0, 0))
-    pen.lineTo((0, 896))
-    pen.lineTo((1024, 896))
-    pen.lineTo((1024, 0))
+    pen.lineTo((0, ASCENT))
+    pen.lineTo((UNITS_PER_EM, ASCENT))
+    pen.lineTo((UNITS_PER_EM, 0))
     pen.closePath()
     glyphs['.notdef'] = pen.glyph()
-    metrics['.notdef'] = (1024, 0)  # (advance width, left side bearing)
+    metrics['.notdef'] = (UNITS_PER_EM, 0)
     
     # Icon glyphs
     for name, (code, path_d) in ICONS.items():
@@ -192,53 +195,66 @@ def main():
             pen = TTGlyphPen(None)
             parse_svg_path_to_pen(path_d, pen)
             glyphs[name] = pen.glyph()
-            metrics[name] = (1024, 0)
+            metrics[name] = (UNITS_PER_EM, 0)
         except Exception as e:
             print(f"  Warning: Failed to create glyph '{name}': {e}")
             pen = TTGlyphPen(None)
             pen.moveTo((0, 0))
-            pen.lineTo((512, 896))
-            pen.lineTo((1024, 0))
+            pen.lineTo((UNITS_PER_EM // 2, ASCENT))
+            pen.lineTo((UNITS_PER_EM, 0))
             pen.closePath()
             glyphs[name] = pen.glyph()
-            metrics[name] = (1024, 0)
+            metrics[name] = (UNITS_PER_EM, 0)
     
     # Setup glyph order
     glyph_order = ['.notdef'] + list(ICONS.keys())
-    
-    # Create char codes mapping
     char_map = {int(code, 16): name for name, (code, _) in ICONS.items()}
     
-    # Setup glyph order first
     fb.setupGlyphOrder(glyph_order)
-    
-    # Setup the glyphs and metrics
     fb.setupGlyf(glyphs)
     fb.setupHorizontalMetrics(metrics)
+    
+    # Crucial: horizontal header (hhea) table is REQUIRED by font engines
+    fb.setupHorizontalHeader(ascent=ASCENT, descent=DESCENT)
     
     # Setup character map before OS/2
     fb.setupCharacterMap(char_map)
     
-    # Now setup OS/2 and Post
-    fb.setupOS2()
+    # OS/2 and Postscript tables
+    fb.setupOS2(
+        sTypoAscender=ASCENT,
+        sTypoDescender=DESCENT,
+        usWinAscent=ASCENT,
+        usWinDescent=abs(DESCENT)
+    )
     fb.setupPost()
     
-    # Build and save
-    font = fb.font
+    # Build and save TTF and OTF
+    targets = [
+        (os.path.join(script_dir, f"{FONT_NAME}.ttf"), os.path.join(script_dir, f"{FONT_NAME}.otf")),
+        (os.path.join(fonts_dir, f"{FONT_NAME}.ttf"), os.path.join(fonts_dir, f"{FONT_NAME}.otf")),
+    ]
     
-    ttf_path = os.path.join(script_dir, f"{FONT_NAME}.ttf")
-    font.save(ttf_path)
-    print(f"✓ TTF saved: {ttf_path}")
-    
-    otf_path = os.path.join(script_dir, f"{FONT_NAME}.otf")
-    font.save(otf_path)
-    print(f"✓ OTF saved: {otf_path}")
+    for ttf_path, otf_path in targets:
+        fb.save(ttf_path)
+        fb.save(otf_path)
+        print(f"✓ TTF saved: {ttf_path}")
+        print(f"✓ OTF saved: {otf_path}")
+        
+        # Save WOFF and WOFF2
+        font_obj = TTFont(ttf_path)
+        woff_path = ttf_path.replace(".ttf", ".woff")
+        font_obj.flavor = "woff"
+        font_obj.save(woff_path)
+        print(f"✓ WOFF saved: {woff_path}")
+        
+        woff2_path = ttf_path.replace(".ttf", ".woff2")
+        font_obj.flavor = "woff2"
+        font_obj.save(woff2_path)
+        print(f"✓ WOFF2 saved: {woff2_path}")
     
     print("-" * 40)
-    print("Build complete!")
-    print("\nTo create WOFF/WOFF2:")
-    print("  pip install brotli")
-    print(f"  fonttools ttLib.woff2 compress {ttf_path}")
+    print("Build complete! All 4 web font formats generated successfully.")
 
 
 if __name__ == "__main__":
