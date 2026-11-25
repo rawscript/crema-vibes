@@ -118,34 +118,98 @@ def make_arc_strip(cx, cy, rx, ry, a_rad, b_rad, stroke_x, stroke_y, n=48):
     return Polygon(outer + inner)
 
 def make_bowl_right(x_stem, y_bot, y_top, width, stroke_x, stroke_y, n=48):
-    """Smooth D-bowl extending rightward from x_stem with horizontal tangents (no V-notch)."""
+    """Smooth C1 editorial D-bowl extending rightward from x_stem."""
     cy = (y_top + y_bot) * 0.5
     ry = (y_top - y_bot) * 0.5
-    flat = min(50.0, width * 0.22)
-    cx = x_stem + flat
-    rx = max(20.0, width - flat)
+    cx = x_stem + width * 0.36
+    rx = max(20.0, width * 0.64)
+
+    # Outer contour: smooth lead-in from stem -> right semi-ellipse -> smooth lead-out to stem
+    lead_bot = bezier_cubic(
+        np.array([x_stem, y_bot + ry * 0.14]),
+        np.array([x_stem + width * 0.14, y_bot]),
+        np.array([cx - width * 0.12, y_bot]),
+        np.array([cx, y_bot]), 16
+    )
     theta = np.linspace(-np.pi * 0.5, np.pi * 0.5, n)
-    outer = [(x_stem, y_bot), (cx, y_bot)] + [(cx + rx * np.cos(t), cy + ry * np.sin(t)) for t in theta[1:-1]] + [(cx, y_top), (x_stem, y_top)]
+    arc_out = [(cx + rx * np.cos(t), cy + ry * np.sin(t)) for t in theta[1:-1]]
+    lead_top = bezier_cubic(
+        np.array([cx, y_top]),
+        np.array([cx - width * 0.12, y_top]),
+        np.array([x_stem + width * 0.14, y_top]),
+        np.array([x_stem, y_top - ry * 0.14]), 16
+    )
+    outer = [(tuple(p)) for p in lead_bot] + arc_out + [(tuple(p)) for p in lead_top]
     outer_poly = Polygon(outer)
-    rx_in = max(5.0, rx - stroke_x)
-    ry_in = max(5.0, ry - stroke_y)
-    inner = [(x_stem, y_top - stroke_y), (cx, y_top - stroke_y)] + [(cx + rx_in * np.cos(t), cy + ry_in * np.sin(t)) for t in reversed(theta[1:-1])] + [(cx, y_bot + stroke_y), (x_stem, y_bot + stroke_y)]
+
+    # Inner counter: smooth C1 rounded-left inner contour (no sharp 90-deg corners)
+    x_in = x_stem + stroke_x * 0.45
+    rx_in = max(8.0, rx - stroke_x)
+    ry_in = max(8.0, ry - stroke_y)
+    cx_in = max(x_in + 8.0, cx)
+    y_in_top = cy + ry_in
+    y_in_bot = cy - ry_in
+    in_lead_top = bezier_cubic(
+        np.array([x_in, cy + ry_in * 0.58]),
+        np.array([x_in, y_in_top]),
+        np.array([x_in + (cx_in - x_in) * 0.45, y_in_top]),
+        np.array([cx_in, y_in_top]), 14
+    )
+    arc_in = [(cx_in + rx_in * np.cos(t), cy + ry_in * np.sin(t)) for t in reversed(theta[1:-1])]
+    in_lead_bot = bezier_cubic(
+        np.array([cx_in, y_in_bot]),
+        np.array([x_in + (cx_in - x_in) * 0.45, y_in_bot]),
+        np.array([x_in, y_in_bot]),
+        np.array([x_in, cy - ry_in * 0.58]), 14
+    )
+    inner = [(tuple(p)) for p in in_lead_top] + arc_in + [(tuple(p)) for p in in_lead_bot]
     inner_poly = Polygon(inner)
     return outer_poly.difference(inner_poly)
 
 def make_bowl_left(x_stem, y_bot, y_top, width, stroke_x, stroke_y, n=48):
-    """Smooth D-bowl extending leftward from x_stem with horizontal tangents (no V-notch)."""
+    """Smooth C1 editorial D-bowl extending leftward from x_stem."""
     cy = (y_top + y_bot) * 0.5
     ry = (y_top - y_bot) * 0.5
-    flat = min(50.0, width * 0.22)
-    cx = x_stem - flat
-    rx = max(20.0, width - flat)
+    cx = x_stem - width * 0.36
+    rx = max(20.0, width * 0.64)
+
+    lead_top = bezier_cubic(
+        np.array([x_stem, y_top - ry * 0.14]),
+        np.array([x_stem - width * 0.14, y_top]),
+        np.array([cx + width * 0.12, y_top]),
+        np.array([cx, y_top]), 16
+    )
     theta = np.linspace(np.pi * 0.5, np.pi * 1.5, n)
-    outer = [(x_stem, y_top), (cx, y_top)] + [(cx + rx * np.cos(t), cy + ry * np.sin(t)) for t in theta[1:-1]] + [(cx, y_bot), (x_stem, y_bot)]
+    arc_out = [(cx + rx * np.cos(t), cy + ry * np.sin(t)) for t in theta[1:-1]]
+    lead_bot = bezier_cubic(
+        np.array([cx, y_bot]),
+        np.array([cx + width * 0.12, y_bot]),
+        np.array([x_stem - width * 0.14, y_bot]),
+        np.array([x_stem, y_bot + ry * 0.14]), 16
+    )
+    outer = [(tuple(p)) for p in lead_top] + arc_out + [(tuple(p)) for p in lead_bot]
     outer_poly = Polygon(outer)
-    rx_in = max(5.0, rx - stroke_x)
-    ry_in = max(5.0, ry - stroke_y)
-    inner = [(x_stem, y_bot + stroke_y), (cx, y_bot + stroke_y)] + [(cx + rx_in * np.cos(t), cy + ry_in * np.sin(t)) for t in reversed(theta[1:-1])] + [(cx, y_top - stroke_y), (x_stem, y_top - stroke_y)]
+
+    x_in = x_stem - stroke_x * 0.45
+    rx_in = max(8.0, rx - stroke_x)
+    ry_in = max(8.0, ry - stroke_y)
+    cx_in = min(x_in - 8.0, cx)
+    y_in_top = cy + ry_in
+    y_in_bot = cy - ry_in
+    in_lead_bot = bezier_cubic(
+        np.array([x_in, cy - ry_in * 0.58]),
+        np.array([x_in, y_in_bot]),
+        np.array([x_in - (x_in - cx_in) * 0.45, y_in_bot]),
+        np.array([cx_in, y_in_bot]), 14
+    )
+    arc_in = [(cx_in + rx_in * np.cos(t), cy + ry_in * np.sin(t)) for t in reversed(theta[1:-1])]
+    in_lead_top = bezier_cubic(
+        np.array([cx_in, y_in_top]),
+        np.array([x_in - (x_in - cx_in) * 0.45, y_in_top]),
+        np.array([x_in, y_in_top]),
+        np.array([x_in, cy + ry_in * 0.58]), 14
+    )
+    inner = [(tuple(p)) for p in in_lead_bot] + arc_in + [(tuple(p)) for p in in_lead_top]
     inner_poly = Polygon(inner)
     return outer_poly.difference(inner_poly)
 
@@ -182,26 +246,30 @@ def make_arch_solid(x_left_stem, x_right, y_base, y_top, stem, hair):
     return Polygon(pts).buffer(0)
 
 def make_s_shape(x, y, w, h, stem, hair):
-    p0 = np.array([x + w - stem * 0.4, y + h - 105])
-    p1 = np.array([x + w - stem * 0.4, y + h - hair * 0.5])
-    p2 = np.array([x + stem * 0.3, y + h - hair * 0.5])
-    p3 = np.array([x + stem * 0.3, y + h * 0.72])
-    seg1 = bezier_cubic(p0, p1, p2, p3, 25)
+    """Silky C1-continuous S-curve with tangent-aligned Bezier segments."""
+    cx = x + w * 0.50
+    cy = y + h * 0.51
+    x_l = x + stem * 0.42
+    x_r = x + w - stem * 0.42
+    y_top = y + h - hair * 0.50
+    y_bot = y + hair * 0.50
 
-    p4 = np.array([x + stem * 0.3, y + h * 0.58])
-    p5 = np.array([x + w * 0.5, y + h * 0.50])
-    seg2 = bezier_cubic(p3, p4, p5, p5, 20)
+    p_tr  = np.array([x_r - w * 0.04, y + h * 0.82])
+    p_top = np.array([cx, y_top])
+    p_tl  = np.array([x_l + w * 0.03, y + h * 0.74])
+    p_mid = np.array([cx, cy])
+    p_br  = np.array([x_r, y + h * 0.25])
+    p_bot = np.array([cx, y_bot])
+    p_bl  = np.array([x_l, y + h * 0.17])
 
-    p6 = np.array([x + w - stem * 0.3, y + h * 0.42])
-    p7 = np.array([x + w - stem * 0.3, y + h * 0.28])
-    seg3 = bezier_cubic(p5, p5, p6, p7, 20)
+    seg1 = bezier_cubic(p_tr, np.array([x_r - w * 0.04, y_top]), np.array([cx + w * 0.24, y_top]), p_top, 24)
+    seg2 = bezier_cubic(p_top, np.array([cx - w * 0.24, y_top]), np.array([x_l + w * 0.03, y + h * 0.88]), p_tl, 24)
+    seg3 = bezier_cubic(p_tl, np.array([x_l + w * 0.03, y + h * 0.58]), np.array([cx - w * 0.18, cy + h * 0.08]), p_mid, 24)
+    seg4 = bezier_cubic(p_mid, np.array([cx + w * 0.18, cy - h * 0.08]), np.array([x_r, y + h * 0.42]), p_br, 24)
+    seg5 = bezier_cubic(p_br, np.array([x_r, y + h * 0.10]), np.array([cx + w * 0.24, y_bot]), p_bot, 24)
+    seg6 = bezier_cubic(p_bot, np.array([cx - w * 0.24, y_bot]), np.array([x_l, y_bot]), p_bl, 24)
 
-    p8 = np.array([x + w - stem * 0.3, y + hair * 0.5])
-    p9 = np.array([x + stem * 0.4, y + hair * 0.5])
-    p10 = np.array([x + stem * 0.4, y + 105])
-    seg4 = bezier_cubic(p7, p8, p9, p10, 25)
-
-    pts = np.vstack([seg1, seg2[1:], seg3[1:], seg4[1:]])
+    pts = np.vstack([seg1, seg2[1:], seg3[1:], seg4[1:], seg5[1:], seg6[1:]])
     s_poly = LineString(pts).buffer(hair * 0.5, cap_style=2, join_style=1, resolution=32)
     return s_poly.intersection(box(x - 50, y, x + w + 50, y + h))
 
@@ -428,11 +496,19 @@ def shape_glyph(ch, weight):
         rect(150 - stem * 0.5, 0, stem, stem)
         return unary_union(forms), 300
     elif ch == '?':
-        cx, cy, rx, ry = 250, 520, 190, 180
-        hook = make_arc_strip(cx, cy, rx, ry, -math.pi * 0.3, math.pi, stem, hair)
-        stem_drop = box(cx - stem * 0.5, 180, cx + stem * 0.5, cy - ry + hair)
-        dot = box(cx - stem * 0.5, 0, cx + stem * 0.5, stem)
-        forms.extend([hook, stem_drop, dot])
+        cx_q = 250
+        y_top = CAP - hair * 0.5
+        p0 = np.array([115, 535])
+        p1 = np.array([115, y_top])
+        p2 = np.array([cx_q, y_top])
+        p3 = np.array([385, 535])
+        seg1 = bezier_cubic(p0, p1, np.array([cx_q - 85, y_top]), p2, 24)
+        seg2 = bezier_cubic(p2, np.array([cx_q + 85, y_top]), np.array([385, y_top]), p3, 24)
+        seg3 = bezier_cubic(p3, np.array([385, 420]), np.array([cx_q, 415]), np.array([cx_q, 325]), 24)
+        pts = np.vstack([seg1, seg2[1:], seg3[1:], np.array([[cx_q, 185]])])
+        hook = LineString(pts).buffer(hair * 0.5, cap_style=2, join_style=1, resolution=32).intersection(box(0, 185, 500, CAP))
+        dot = box(cx_q - stem * 0.5, 0, cx_q + stem * 0.5, stem)
+        forms.extend([hook, dot])
         return unary_union(forms), 500
     elif ch == '-':
         rect(80, XH * 0.5 - hair * 0.5, 340, hair)
