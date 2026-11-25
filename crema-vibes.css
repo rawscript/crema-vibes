@@ -1,28 +1,142 @@
 /**
- * Crema Vibes Icon Font
- * Version 1.0
+ * Crema Vibes — Bespoke Editorial Sans & Icon Font
+ * Version 2.5
  * Copyright (c) 2026 Konsalta Hub
  * License: Included with purchase - see LICENSE.md
  */
 
-/* Font Face Declaration */
+/* ==========================================================================
+   Font Face Declarations (9 Weights: 100 UltraThin to 900 Dark)
+   ========================================================================== */
+
 @font-face {
   font-family: 'Crema Vibes';
-  src: url('crema-vibes.woff2') format('woff2'),
-       url('crema-vibes.woff') format('woff'),
-       url('crema-vibes.ttf') format('truetype'),
-       url('crema-vibes.otf') format('opentype');
-  font-weight: normal;
+  src: url('CremaVibes-UltraThin.woff2') format('woff2'),
+       url('CremaVibes-UltraThin.woff') format('woff'),
+       url('CremaVibes-UltraThin.ttf') format('truetype'),
+       url('CremaVibes-UltraThin.otf') format('opentype');
+  font-weight: 100;
   font-style: normal;
-  font-display: block;
+  font-display: swap;
 }
 
-/* Base Icon Styles */
+@font-face {
+  font-family: 'Crema Vibes';
+  src: url('CremaVibes-Thin.woff2') format('woff2'),
+       url('CremaVibes-Thin.woff') format('woff'),
+       url('CremaVibes-Thin.ttf') format('truetype'),
+       url('CremaVibes-Thin.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Crema Vibes';
+  src: url('CremaVibes-Light.woff2') format('woff2'),
+       url('CremaVibes-Light.woff') format('woff'),
+       url('CremaVibes-Light.ttf') format('truetype'),
+       url('CremaVibes-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Crema Vibes';
+  src: url('CremaVibes-Regular.woff2') format('woff2'),
+       url('CremaVibes-Regular.woff') format('woff'),
+       url('CremaVibes-Regular.ttf') format('truetype'),
+       url('CremaVibes-Regular.otf') format('opentype'),
+       url('crema-vibes.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Crema Vibes';
+  src: url('CremaVibes-Medium.woff2') format('woff2'),
+       url('CremaVibes-Medium.woff') format('woff'),
+       url('CremaVibes-Medium.ttf') format('truetype'),
+       url('CremaVibes-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Crema Vibes';
+  src: url('CremaVibes-SemiBold.woff2') format('woff2'),
+       url('CremaVibes-SemiBold.woff') format('woff'),
+       url('CremaVibes-SemiBold.ttf') format('truetype'),
+       url('CremaVibes-SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Crema Vibes';
+  src: url('CremaVibes-Bold.woff2') format('woff2'),
+       url('CremaVibes-Bold.woff') format('woff'),
+       url('CremaVibes-Bold.ttf') format('truetype'),
+       url('CremaVibes-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Crema Vibes';
+  src: url('CremaVibes-ExtraBold.woff2') format('woff2'),
+       url('CremaVibes-ExtraBold.woff') format('woff'),
+       url('CremaVibes-ExtraBold.ttf') format('truetype'),
+       url('CremaVibes-ExtraBold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Crema Vibes';
+  src: url('CremaVibes-Dark.woff2') format('woff2'),
+       url('CremaVibes-Dark.woff') format('woff'),
+       url('CremaVibes-Dark.ttf') format('truetype'),
+       url('CremaVibes-Dark.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   Typography Utility Classes
+   ========================================================================== */
+
+.font-crema {
+  font-family: 'Crema Vibes', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-style: normal;
+}
+
+.weight-ultrathin { font-weight: 100; }
+.weight-thin      { font-weight: 200; }
+.weight-light     { font-weight: 300; }
+.weight-regular   { font-weight: 400; }
+.weight-medium    { font-weight: 500; }
+.weight-semibold  { font-weight: 600; }
+.weight-bold      { font-weight: 700; }
+.weight-extrabold { font-weight: 800; }
+.weight-dark      { font-weight: 900; }
+
+/* ==========================================================================
+   Base Icon Styles
+   ========================================================================== */
+
 .crema-icon {
   font-family: 'Crema Vibes' !important;
   speak: never;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-variant: normal;
   text-transform: none;
   line-height: 1;
@@ -32,30 +146,30 @@
   vertical-align: middle;
 }
 
-/* Icon Classes */
-.cr-arrow-up::before { content: '\e001'; }
-.cr-menu::before { content: '\e002'; }
-.cr-search::before { content: '\e003'; }
-.cr-trending-up::before { content: '\e004'; }
-.cr-chip::before { content: '\e005'; }
-.cr-document::before { content: '\e006'; }
-.cr-target::before { content: '\e007'; }
-.cr-bar-chart::before { content: '\e008'; }
-.cr-layers::before { content: '\e009'; }
-.cr-chat-bubble::before { content: '\e010'; }
-.cr-megaphone::before { content: '\e011'; }
-.cr-linkedin::before { content: '\e012'; }
-.cr-whatsapp::before { content: '\e013'; }
-.cr-email::before { content: '\e014'; }
+/* Icon Classes (Unicode PUA E001 - E014) */
+.cr-arrow-up::before     { content: '\e001'; }
+.cr-menu::before         { content: '\e002'; }
+.cr-search::before       { content: '\e003'; }
+.cr-trending-up::before  { content: '\e004'; }
+.cr-chip::before         { content: '\e005'; }
+.cr-document::before     { content: '\e006'; }
+.cr-target::before       { content: '\e007'; }
+.cr-bar-chart::before    { content: '\e008'; }
+.cr-layers::before       { content: '\e009'; }
+.cr-chat-bubble::before  { content: '\e010'; }
+.cr-megaphone::before    { content: '\e011'; }
+.cr-linkedin::before     { content: '\e012'; }
+.cr-whatsapp::before     { content: '\e013'; }
+.cr-email::before        { content: '\e014'; }
 
 /* Sizing Utilities */
-.cr-xs { font-size: 0.75em; }    /* 12px at 16px base */
-.cr-sm { font-size: 0.875em; }   /* 14px at 16px base */
-.cr-md { font-size: 1em; }       /* 16px at 16px base */
-.cr-lg { font-size: 1.25em; }    /* 20px at 16px base */
-.cr-xl { font-size: 1.5em; }     /* 24px at 16px base */
-.cr-2xl { font-size: 2em; }      /* 32px at 16px base */
-.cr-3xl { font-size: 3em; }      /* 48px at 16px base */
+.cr-xs  { font-size: 0.75em; }
+.cr-sm  { font-size: 0.875em; }
+.cr-md  { font-size: 1em; }
+.cr-lg  { font-size: 1.25em; }
+.cr-xl  { font-size: 1.5em; }
+.cr-2xl { font-size: 2em; }
+.cr-3xl { font-size: 3em; }
 
 /* Animation Utilities */
 .cr-spin {
