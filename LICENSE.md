@@ -1,6 +1,6 @@
 # Crema Vibes Icon Font License
 
-**Version 1.0 | Effective Date: November 23, 2026**
+**Version 3.0 | Effective Date: November 23, 2026**
 
 ---
 
