@@ -117,6 +117,22 @@ def make_arc_strip(cx, cy, rx, ry, a_rad, b_rad, stroke_x, stroke_y, n=48):
     inner = [(cx + rx_in * np.cos(t), cy + ry_in * np.sin(t)) for t in reversed(theta)]
     return Polygon(outer + inner)
 
+def make_cap_bowl_right(x_stem_left, y_bot, y_top, width, stroke_x, stroke_y, n=48):
+    """Crisp uppercase D-bowl with flush horizontal top/bottom bars meeting the left stem."""
+    cy = (y_top + y_bot) * 0.5
+    ry = (y_top - y_bot) * 0.5
+    cx = x_stem_left + width * 0.42
+    rx = max(20.0, width * 0.58)
+    theta = np.linspace(-np.pi * 0.5, np.pi * 0.5, n)
+    outer = [(x_stem_left, y_bot), (cx, y_bot)] + [(cx + rx * np.cos(t), cy + ry * np.sin(t)) for t in theta[1:-1]] + [(cx, y_top), (x_stem_left, y_top)]
+    outer_poly = Polygon(outer)
+    rx_in = max(8.0, rx - stroke_x)
+    ry_in = max(8.0, ry - stroke_y)
+    x_in = x_stem_left + stroke_x * 0.8
+    inner = [(x_in, y_top - stroke_y), (cx, y_top - stroke_y)] + [(cx + rx_in * np.cos(t), cy + ry_in * np.sin(t)) for t in reversed(theta[1:-1])] + [(cx, y_bot + stroke_y), (x_in, y_bot + stroke_y)]
+    inner_poly = Polygon(inner)
+    return outer_poly.difference(inner_poly)
+
 def make_bowl_right(x_stem, y_bot, y_top, width, stroke_x, stroke_y, n=48):
     """Smooth C1 editorial D-bowl extending rightward from x_stem."""
     cy = (y_top + y_bot) * 0.5
@@ -246,31 +262,33 @@ def make_arch_solid(x_left_stem, x_right, y_base, y_top, stem, hair):
     return Polygon(pts).buffer(0)
 
 def make_s_shape(x, y, w, h, stem, hair):
-    """Silky C1-continuous S-curve with tangent-aligned Bezier segments."""
+    """Smooth, horn-free C1-continuous S-curve across all weights."""
     cx = x + w * 0.50
-    cy = y + h * 0.51
-    x_l = x + stem * 0.42
-    x_r = x + w - stem * 0.42
+    cy = y + h * 0.50
+    pad_x = max(stem * 0.50, w * 0.14)
+    x_l = x + pad_x
+    x_r = x + w - pad_x
     y_top = y + h - hair * 0.50
     y_bot = y + hair * 0.50
 
-    p_tr  = np.array([x_r - w * 0.04, y + h * 0.82])
+    p_tr  = np.array([x_r - w * 0.03, y + h * 0.82])
     p_top = np.array([cx, y_top])
-    p_tl  = np.array([x_l + w * 0.03, y + h * 0.74])
+    p_tl  = np.array([x_l, y + h * 0.72])
     p_mid = np.array([cx, cy])
-    p_br  = np.array([x_r, y + h * 0.25])
+    p_br  = np.array([x_r, y + h * 0.28])
     p_bot = np.array([cx, y_bot])
-    p_bl  = np.array([x_l, y + h * 0.17])
+    p_bl  = np.array([x_l + w * 0.03, y + h * 0.18])
 
-    seg1 = bezier_cubic(p_tr, np.array([x_r - w * 0.04, y_top]), np.array([cx + w * 0.24, y_top]), p_top, 24)
-    seg2 = bezier_cubic(p_top, np.array([cx - w * 0.24, y_top]), np.array([x_l + w * 0.03, y + h * 0.88]), p_tl, 24)
-    seg3 = bezier_cubic(p_tl, np.array([x_l + w * 0.03, y + h * 0.58]), np.array([cx - w * 0.18, cy + h * 0.08]), p_mid, 24)
-    seg4 = bezier_cubic(p_mid, np.array([cx + w * 0.18, cy - h * 0.08]), np.array([x_r, y + h * 0.42]), p_br, 24)
-    seg5 = bezier_cubic(p_br, np.array([x_r, y + h * 0.10]), np.array([cx + w * 0.24, y_bot]), p_bot, 24)
-    seg6 = bezier_cubic(p_bot, np.array([cx - w * 0.24, y_bot]), np.array([x_l, y_bot]), p_bl, 24)
+    seg1 = bezier_cubic(p_tr, np.array([x_r - w * 0.08, y_top]), np.array([cx + w * 0.22, y_top]), p_top, 24)
+    seg2 = bezier_cubic(p_top, np.array([cx - w * 0.24, y_top]), np.array([x_l, y + h * 0.88]), p_tl, 24)
+    seg3 = bezier_cubic(p_tl, np.array([x_l, y + h * 0.56]), np.array([cx - w * 0.20, cy + h * 0.08]), p_mid, 24)
+    seg4 = bezier_cubic(p_mid, np.array([cx + w * 0.20, cy - h * 0.08]), np.array([x_r, y + h * 0.44]), p_br, 24)
+    seg5 = bezier_cubic(p_br, np.array([x_r, y + h * 0.12]), np.array([cx + w * 0.24, y_bot]), p_bot, 24)
+    seg6 = bezier_cubic(p_bot, np.array([cx - w * 0.22, y_bot]), np.array([x_l + w * 0.08, y_bot]), p_bl, 24)
 
     pts = np.vstack([seg1, seg2[1:], seg3[1:], seg4[1:], seg5[1:], seg6[1:]])
-    s_poly = LineString(pts).buffer(hair * 0.5, cap_style=2, join_style=1, resolution=32)
+    # Clean buffer + small positive/negative morph removes any tight-curvature swallowtail
+    s_poly = LineString(pts).buffer(hair * 0.5, cap_style=2, join_style=1, resolution=32).buffer(0)
     return s_poly.intersection(box(x - 50, y, x + w + 50, y + h))
 
 def make_c_shape(cx, cy, rx, ry, stem, hair, start_deg=40, end_deg=320):
@@ -702,8 +720,8 @@ def shape_glyph(ch, weight):
             w = 620
             lsb = 70
             rect(lsb, 0, stem, CAP)
-            top_b = make_bowl_right(lsb + stem - 5, 340, CAP, 230, stem, hair)
-            bot_b = make_bowl_right(lsb + stem - 5, 0, 360, 250, stem, hair)
+            top_b = make_cap_bowl_right(lsb, 340, CAP, w - 85 - lsb, stem, hair)
+            bot_b = make_cap_bowl_right(lsb, 0, 340 + hair, w - 65 - lsb, stem, hair)
             forms.extend([top_b, bot_b])
             return unary_union(forms), w
         elif ch == 'C':
@@ -714,7 +732,7 @@ def shape_glyph(ch, weight):
             w = 640
             lsb = 70
             rect(lsb, 0, stem, CAP)
-            forms.append(make_bowl_right(lsb + stem - 5, 0, CAP, w - 70 - (lsb + stem - 5), stem, hair))
+            forms.append(make_cap_bowl_right(lsb, 0, CAP, w - 70 - lsb, stem, hair))
             return unary_union(forms), w
         elif ch == 'E':
             w = 540
@@ -809,7 +827,7 @@ def shape_glyph(ch, weight):
             w = 580
             lsb = 70
             rect(lsb, 0, stem, CAP)
-            forms.append(make_bowl_right(lsb + stem - 5, 310, CAP, w - 70 - (lsb + stem - 5), stem, hair))
+            forms.append(make_cap_bowl_right(lsb, 310, CAP, w - 70 - lsb, stem, hair))
             return unary_union(forms), w
         elif ch == 'Q':
             w = 680
@@ -824,11 +842,11 @@ def shape_glyph(ch, weight):
             w = 600
             lsb = 70
             rect(lsb, 0, stem, CAP)
-            bowl = make_bowl_right(lsb + stem - 5, 300, CAP, 230, stem, hair)
-            dx = w - 70 - 270
+            bowl = make_cap_bowl_right(lsb, 310, CAP, w - 85 - lsb, stem, hair)
+            dx = w - 70 - 300
             hyp = np.hypot(dx, 320)
             stem_h = stem * hyp / 320
-            leg = Polygon([(270, 320), (w - 70, 0), (w - 70 - stem_h, 0), (270 - stem * 0.5, 320)])
+            leg = Polygon([(300, 320), (w - 70, 0), (w - 70 - stem_h, 0), (300 - stem_h * 0.7, 320)])
             forms.extend([bowl, leg])
             return unary_union(forms).intersection(box(lsb - 20, 0, w, CAP)), w
         elif ch == 'S':
@@ -857,14 +875,15 @@ def shape_glyph(ch, weight):
             return make_y_upper(60, w - 60, CAP, stem), w
         elif ch == 'Z':
             w = 580
-            top_b = box(60, CAP - hair, w - 60, CAP)
-            bot_b = box(60, 0, w - 60, hair)
-            dx = w - 70 - 70
+            lsb_z, rsb_z = 60, w - 60
+            top_b = box(lsb_z, CAP - hair, rsb_z, CAP)
+            bot_b = box(lsb_z, 0, rsb_z, hair)
+            dx = rsb_z - lsb_z
             hyp = np.hypot(dx, CAP)
-            stem_h = stem * hyp / CAP
-            diag = Polygon([(w - 70, CAP), (w - 70 - stem_h, CAP), (70, 0), (70 + stem_h, 0)])
+            diag_h = hair * hyp / CAP
+            diag = Polygon([(rsb_z, CAP), (rsb_z - diag_h, CAP), (lsb_z, 0), (lsb_z + diag_h, 0)])
             forms.extend([top_b, bot_b, diag])
-            return unary_union(forms).intersection(box(40, 0, w - 40, CAP)), w
+            return unary_union(forms).intersection(box(lsb_z, 0, rsb_z, CAP)), w
 
     # Lowercase a-z
     if ch.islower():
